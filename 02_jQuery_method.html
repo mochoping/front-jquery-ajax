@@ -35,14 +35,68 @@
         $('#simpleForm').submit(function (event){
             event.preventDefault();
             //기본 제출 동작 방지
+
+            // input에 입력된 username 값을 가져오기    $('#아이디명칭').val();  val() = value() 줄임말
+            // 만약에 input에 값이 존재한다면 존재하는 값으로 글자를 변경
+            // input에 값이 존재하지 않고 빈 공간이라면 alert 이름을 입력해주세요 표기
             const username = $('#username').val();
             if(username){
                 $('#content').text(`안녕하세요. ${username} 님`); // 역따옴표는 글자사이에 변수를 넣어줄때 사용
-            }else {
-                alert('이름을 입력해주세요');
+                $('#content').text('안녕하세요. ' + username + ' 님!').css("color","green"); //덮어쓰기 마지막에 작성한 text로 변경
+                //   └───── <div id="content" style="color:green;">안녕하세요.  username  님!</div>
+
+
+                $('#content').text('안녕하세요. ' + username + ' 님!').addClass('new-item'); //덮어쓰기 마지막에 작성한 text로 변경
+                $('#content').text('안녕하세요. ' + username + ' 님!').removeClass('error'); //덮어쓰기 마지막에 작성한 text로 변경
+
+                // 위코드와 아래코드 동일하게 작동하는 코드  addClass removeClass 순서 상관 X
+
+                $('#content').text('안녕하세요. ' + username + ' 님!').addClass('new-item').removeClass('error');
+                //   └───── <div id="content" style="color:green;" class="new-item">안녕하세요.  username  님!</div>
+
+            } else {
+
+                $('#content').text('이름을 입력해주세요.').css('color', 'red');
+                //   └───── <div id="content" style="color:red;">이름을 입력해주세요.</div>
+
+
+
+
+                $('#content').text('이름을 입력해주세요.').addClass('error');
+                $('#content').text('이름을 입력해주세요.').removeClass('new-item');
+
+                // 위코드와 아래코드 동일하게 작동하는 코드   addClass removeClass 순서 상관 X
+
+                $('#content').text('이름을 입력해주세요.').addClass('error').removeClass('new-item');
+                //   └───── <div id="content" style="color:red;" class="error">이름을 입력해주세요.</div>
+
             }
-        })
-    })
+            /*
+            const username = $('#username').val() ;
+
+            username이라는 변수이름에 $('#username').val() 값을 넣어주지 않고
+            직접적으로
+            $('#username').val() 로 사용할 경우
+
+             if( $('#username').val() ){
+                    $('#content').text(`안녕하세요. ${$('#username').val() } 님!`);
+                    $('#content').text('안녕하세요. ' + $('#username').val()  + ' 님!');
+             }
+             와 같이 사용할 수 있다.
+
+             하지만 변수이름에 $('#username').val()  담아서 사용하는 것이 안전하기 때문에
+             const 변수이름 = html에서 가져온 value값; 을 작성해 주는 것
+
+            */
+        });
+
+        $('#resetForm').click(function () {
+            // 입력창초기화  username  .val()
+            $('#username').val('');
+            // 결과 초기화  content   .text(제출결과가 여기에 표시됩니다.)
+            $('#content').text('제출결과가 여기에 표시됩니다.');
+        });
+    });
 
 
 </script>

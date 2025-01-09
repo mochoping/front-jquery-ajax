@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        #imageContainer, #catContainer{
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .image-item {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border: 1px solid #ddd;
+        }
+
+
+    </style>
+</head>
+<body>
+    <h1>이미지 가져오기</h1>
+<button id="loadImages">이미지 가져오기</button>
+<div id="imageContainer"></div>
+<script>
+    $('#loadImages').click(function () {
+        $.ajax({
+            //무료 강아지 사진 제공
+            url: 'https://api.thedogapi.com/v1/images/search?limit=1',
+            method: 'GET',
+            success:
+                function (data){
+                // 이미지가 한장만 보였으면 할때
+                    //1. .append() -> .html() 로 변경한다.
+                    //2. .empty() 비우기를 사용한다.
+                $('#imageContainer').append(
+                    '<img class="image-item" src= '+ data[0].url + ' >');
+            },
+            error:
+            function (){
+                $('#imageContainer').html('<p>강아지 사진을 가져오는데 실패했습니다. </p>');
+            }
+        })
+    })
+
+
+</script>
+<button id="loadCat">고양이 사진 가져오기</button>
+<div id="catContainer"></div>
+<script>
+
+        $('#loadCat').click(function () {
+            $.ajax({
+                url: 'https://api.thecatapi.com/v1/images/search?limit=1',
+                method: 'GET',
+                success:
+                    function (data1) {
+                        $('#catContainer').append(
+                            '<img class="image-item" src= ' + data1[0].url + '>'
+                        );
+                    },
+                error:
+                    function () {
+                        $('#catContainer').html('<p>고양이 사진을 가져오는데 실패했습니다. </p>');
+                    }
+            })
+        })
+
+
+</script>
+</body>
+</html>
