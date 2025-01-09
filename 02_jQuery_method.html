@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        #content{
+            margin-top:20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: thistle;
+        }
+        .new-item {
+            color: green;
+        }
+        .error {
+            color: red;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>간단한 폼 처리</h1>
+<form id="simpleForm">
+    <label for="username">이름</label>
+    <input type="text" id="username" name="username" placeholder="이름을 입력하세요">
+    <button type="submit">제출</button>
+</form>
+<div id="content"> 제출결과가 여기에 표시됩니다. </div>
+<script>
+    $(document).ready(function (){
+        //폼 제출시 사용하는 기능 .submit
+        $('#simpleForm').submit(function (event){
+            event.preventDefault();
+            //기본 제출 동작 방지
+            const username = $('#username').val();
+            if(username){
+                $('#content').text(`안녕하세요. ${username} 님`); // 역따옴표는 글자사이에 변수를 넣어줄때 사용
+            }else {
+                alert('이름을 입력해주세요');
+            }
+        })
+    })
+
+
+</script>
+</body>
+</html>
