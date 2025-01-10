@@ -100,7 +100,7 @@
     $('#fruit-table tbody').append(
             '<tr>' +    // () 괄호 안에 숫자끼리 더한 다음 글자 이어 붙이기 실행
             '<td>' + (index + 1) + '</td>' +
-            '<td data-fruit="' + value + '">' + value  + '</td>' +
+            '<td data-fruitss="' + value + '">' + value  + '</td>' +
             '<tr>'
     );
   });
@@ -109,9 +109,9 @@
   $('#fruit-table').click(
           function (event) {
             // 만약에 클릭된 태그 요소가 data-fruit 속성을 가진 <td>라면
-            if(    $(event.target).is('td[data-fruit]')     ) {
+            if(    $(event.target).is('td[data-fruitss]')     ) {
               // data-fruit 내에 저장된 value 값을 가져오기
-              alert('선택한 과일 : ' + $(event.target).data('fruit') );
+              alert('선택한 과일 : ' + $(event.target).data('fruitss') );
             }
           }
   )
@@ -120,8 +120,8 @@
   $('#fruit-table').click(
           function (event) {// 만약에 클릭된 태그 요소가 data-fruit 속성을 가진 <td>라면
             const target =  $(event.target);
-            const fruitName = target.data('fruit');
-            if(    target.is('td[data-fruit]')     ) {
+            const fruitName = target.data('fruitss');
+            if(    target.is('td[data-fruitss]')     ) {
               alert('선택한 과일 : ' + fruitName );
             }
           }
