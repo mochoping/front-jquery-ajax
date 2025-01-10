@@ -66,7 +66,8 @@
                     },
                 error:
                     function () {
-                        $('#catContainer').html('<p>고양이 사진을 가져오는데 실패했습니다. </p>');
+                       // $('#catContainer').html('<p>고양이 사진을 가져오는데 실패했습니다. </p>');
+                        $('#catContainer').html(`<p>조회된 고양이 사진이 ${data.length} 장 입니다. </p>`);
                     }
             })
         })

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+  <h1>jQuery .each() 반복문 처리</h1>
+
+  <h2>리스트 항목 색상 변경</h2>
+  <ul id="listOne">            <!-- li 전체적인 숫자값   --> <!-- #listOne 내부에서 li 숫자값 -->
+      <li>리스트 항목 1</li>   <!-- index = 0 length = 1 --> <!-- index = 0 length = 1 -->
+      <li>리스트 항목 2</li>   <!-- index = 1 length = 2 --> <!-- index = 1 length = 2 -->
+      <li>리스트 항목 3</li>   <!-- index = 2 length = 3 --> <!-- index = 2 length = 3 -->
+  </ul>
+  <ul id="listTwo">                                           <!-- #listTwo 내부에서 li 숫자값 -->
+      <li>리스트 항목 1</li>     <!-- index = 3 length = 4 -->  <!-- index = 0 length = 1 -->
+      <li>리스트 항목 2</li>     <!-- index = 4 length = 5 -->  <!-- index = 1 length = 2 -->
+      <li>리스트 항목 3</li>     <!-- index = 5 length = 6 -->  <!-- index = 2 length = 3 -->
+  </ul>
+  <ul id="listThee">                                          <!-- #listThree 내부에서 li 숫자값 -->
+      <li>리스트 항목 1</li>    <!-- index = 6 length = 7 -->   <!-- index = 0 length = 1 -->
+      <li>리스트 항목 2</li>    <!-- index = 7 length = 8 -->   <!-- index = 1 length = 2 -->
+      <li>리스트 항목 3</li>    <!-- index = 8 length = 9 -->   <!-- index = 2 length = 3 -->
+  </ul>
+  <button id="colorChange">색상 변경</button>
+  <script>
+    $(document).ready(function () {
+      // 1. ul 태그 내부에 있는 리스트 항목 반복 처리
+      //    colorChange 버튼을 클릭했을 때 색상 변경 , 짝수항목은 파란색, 홀수 항목은 빨간색
+      $('#colorChange').click(function () {
+        // $().each( function(index){index 순서대로 반복할 기능 작성});
+        $('li').each( // 태그 반복 예정) //  $('#listOne li').each() <- 특정 리스트에만 적용시
+          function (index) {
+
+            if(index % 2 === 0){
+              //$('li').css('color','blue'); // 모든태그
+              $(this).css('color','blue'); // 확인된 index만
+            } else {
+              $('li').eq(index).css('color','red'); // eq(index) 선택된 요소중 인덱스 번호와 같은 li 만 선택
+              //$(this).css('color','red');
+            }
+
+          }
+        )
+      })
+    })
+  </script>
+</body>
+</html>
