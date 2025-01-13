@@ -1,0 +1,209 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>08_jQuery_Ajax_people</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <style>
+    body {
+      background-color: #f0f2f5;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header {
+      background-color: #4267b2;
+      color: white;
+      padding: 1em;
+      width: 100%;
+      text-align: center;
+      font-size: 1.8em;
+      font-weight: bold;
+    }
+
+    .profile-container {
+      margin: 20px;
+      padding: 20px;
+      width: 90%;
+      max-width: 400px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .profile-container img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile-container h2 {
+      margin: 15px 0 5px;
+      font-size: 1.5em;
+      color: #333;
+    }
+
+    .profile-container p {
+      font-size: 1em;
+      color: #555;
+      margin: 5px 0;
+    }
+
+    .profile-container button {
+      background-color: #4267b2;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      font-size: 1em;
+      cursor: pointer;
+      margin-top: 15px;
+      transition: background-color 0.3s ease;
+    }
+
+    .profile-container button:hover {
+      background-color: #365899;
+    }
+  </style>
+</head>
+<body>
+<header>유저 프로필 조회</header>
+<div class="profile-container" id="profilesContainer">
+
+</div>
+<button id="loadProfile">새로운 프로필 보기</button>
+<!--
+<div class="profile-container">
+    <img alt="프로필 사진" id="profilePic" src="">
+    <h2 id="profileName">이름</h2>
+    <p id="profileEmail">이메일</p>
+    <p id="profileLocation">위치</p>
+    <button id="loadProfile">새로운 친구 찾기</button>
+</div>
+-->
+<script>
+    // each 문 활용하기
+    function functionProfile() {
+        $.ajax({
+            url: "https://randomuser.me/api/?results=5",
+            method: "GET",
+            success:
+                function (data) {
+                    $("#profilesContainer").html("");
+                    $.each(data.results, function (index, value) {
+                        // $("#profilesContainer").html("");
+                        // each 내부에 <div class="profile-container" id="profilesContainer"> 이미지가 표시되는
+                        // div를 .html("") 초기화 하는 작업을 진행하게 되면 반복문을 돌아갈 때마다 기존에 존재하는
+                        // 데이터를 지우는 행위  마지막에 최종적으로 1개의 데이터만 보여짐
+                        $("#profilesContainer").append(` <div class = "profile-container">
+                                                        <img src="${value.picture.large}">
+                                                        <h2>${value.name.first} ${value.name.last} </h2>
+                                                        <p>이메일 : ${value.email}</p>
+                                                        <p>위치 : ${value.location.city}, ${value.location.country}</p>
+                                                        <p>아이디 : ${value.login.uuid}</p>
+                                                    </div>`)
+                    })
+
+
+                },
+            error:
+                function () {
+                    alert("프로필 데이터를 불러오는데 실패했습니다. 다음에 다시 시도해주세요.");
+                }
+        });
+    }
+
+    // 초기 프로필 불러오기
+    functionProfile();
+    // 버튼 클릭 시 새로운 프로필 불러오기
+    $("#loadProfile").click(
+        function () {
+            functionProfile();
+        }
+    )
+  // 버튼 클릭시 새로운 프로필 불러오기
+
+  /*
+  // 20250113111500
+  // https://randomuser.me/api/
+
+
+  { = data 명칭으로 제일먼저 시작하는 중괄호를 가리키고 있음
+  data 중괄호 내부에 존재하는 results = 결과들 중에서 [] = 대괄호 배열, 리스트 표기방식으로 되어있는
+  data.results[0] 유저 결과들중에서 제일 첫번째로 나와있는 유저 정보를 가져오기
+    "results": [ <- 데이터 형식이 대괄호로
+      {
+        "gender": "male",
+        "name": {
+          "title": "Mr",
+          "first": "Nicholas",
+          "last": "Banks"
+        },
+        "location": {
+          "street": {
+            "number": 6146,
+            "name": "Adams St"
+          },
+          "city": "Melbourne",
+          "state": "Australian Capital Territory",
+          "country": "Australia",
+          "postcode": 372,
+          "coordinates": {
+            "latitude": "-84.4682",
+            "longitude": "-65.8214"
+          },
+          "timezone": {
+            "offset": "+5:30",
+            "description": "Bombay, Calcutta, Madras, New Delhi"
+          }
+        },
+        "email": "nicholas.banks@example.com",
+        "login": {
+          "uuid": "b0b90916-4758-4d50-92ab-7f6ba250acc7",
+          "username": "redpanda549",
+          "password": "burner",
+          "salt": "rDuG2wbe",
+          "md5": "266355ec5fc0f1d2ae776312a62f3e43",
+          "sha1": "d4170dab6196db5a963751412ca3683923ffde88",
+          "sha256": "1f27f6b66031dafa0417c847248c15a5dc752110af32fde9ec7f422828d615ec"
+        },
+        "dob": {
+          "date": "1998-04-02T09:03:12.364Z",
+          "age": 26
+        },
+        "registered": {
+          "date": "2010-09-30T02:03:08.944Z",
+          "age": 14
+        },
+        "phone": "06-1306-7840",
+        "cell": "0459-797-780",
+        "id": {
+          "name": "TFN",
+          "value": "103471814"
+        },
+        "picture": {
+          "large": "https://randomuser.me/api/portraits/men/74.jpg",
+          "medium": "https://randomuser.me/api/portraits/med/men/74.jpg",
+          "thumbnail": "https://randomuser.me/api/portraits/thumb/men/74.jpg"
+        },
+        "nat": "AU"
+      }
+    ],
+    "info": {
+      "seed": "d7f4b8b38f1aff87",
+      "results": 1,
+      "page": 1,
+      "version": "1.4"
+    }
+  }
+   */
+</script>
+</body>
+</html>
