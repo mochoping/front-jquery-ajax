@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+     <h1>무료 API 활용</h1>
+<button id="btnApi">확인하기</button>
+<div id="dataContainer"></div>
+<script>
+      function getdata(){
+        $.ajax({
+          url:'https://api.nobelprize.org/2.1/laureates?sort=asc',
+          method: "GET",
+          success:
+              function (data) {
+                  $('#dataContainer').html("");
+                  $.each(data, function (index , laureates) {
+                    $('#dataContainer').append(
+                            `
+                            <div class = "profile-container">
+                            <h2>${laureates.fullName.en}</h2>
+                            `
+                    )
+
+                  })
+
+              }
+        })
+      }
+
+      getdata();
+</script>
+</body>
+</html>
